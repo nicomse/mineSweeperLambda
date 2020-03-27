@@ -1,3 +1,4 @@
+'use strict'
 const minefield = [
     ['*', '*','',''],
     ['*', '*','',''],
@@ -5,16 +6,19 @@ const minefield = [
     ['', '','',''],
 ];
 
-
-module.exports = function minesweeper(minefield) {
+/*
+Devuelve un json con las posiciones a las distancias que esta cada bomba, si hay una bomba en esa posicion pone un *
+*/
+module.exports.minesweeper = (event, context, callback) => {
     //recorro el minefield
+    // por ahora uso un minefield local
+    let lines = '';
     for (let row = 0; row < minefield.length; row++) {
         let line = ''
         for (let col = 0; col < minefield[row].length; col++) {
             if (getCell(row,col) === 1) {
                 line += '*';
             } else {
-
                 let bombs = 0;
                 // top-left, top-right
                 bombs += getCell(row -1 , col -1);
@@ -33,9 +37,14 @@ module.exports = function minesweeper(minefield) {
 
             }
         }
-        console.log(line)
-
+        lines += line;
     }
+    
+    const response = {
+        statusCode: 200,
+        body: { result: lines }
+    };
+    callback(null, response);
 }
 
 
