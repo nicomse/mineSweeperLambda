@@ -1,14 +1,5 @@
 'use strict'
 
-//
-//ejemplo de request 
-//const minefield = [
-//     ['*', '*','',''],
-//     ['*', '*','',''],
-//     ['', '','*',''],
-//     ['', '','',''],
-// ];
-
 /*
 Devuelve un json con las posiciones a las distancias que esta cada bomba, si hay una bomba en esa posicion pone un *
 */
@@ -27,17 +18,17 @@ module.exports.minesweeper = (event, context, callback) => {
             } else {
                 let bombs = 0;
                 // top-left, top-right
-                bombs += getCell(row -1 , col -1);
-                bombs += getCell(row -1 , col);
-                bombs += getCell(row -1 , col +1);
+                bombs += getCell(minefield,row -1 , col -1);
+                bombs += getCell(minefield,row -1 , col);
+                bombs += getCell(minefield,row -1 , col +1);
 
-                bombs += getCell(row, col -1); //left
-                bombs += getCell(row , col +1); //right
+                bombs += getCell(minefield,row, col -1); //left
+                bombs += getCell(minefield,row , col +1); //right
 
                 // bottom-left, bottom-right
-                bombs += getCell(row +1 , col -1);
-                bombs += getCell(row +1 , col);
-                bombs += getCell(row +1 , col +1);
+                bombs += getCell(minefield,row +1 , col -1);
+                bombs += getCell(minefield,row +1 , col);
+                bombs += getCell(minefield,row +1 , col +1);
 
                 line += bombs;
 
@@ -54,7 +45,7 @@ module.exports.minesweeper = (event, context, callback) => {
 }
 
 
-function getCell(row,col) {
+function getCell(minefield,row,col) {
     //busco la bomba en una locacion valida
     if (row < 0 || col < 0) return 0
     if (row >= minefield.length) return 0
