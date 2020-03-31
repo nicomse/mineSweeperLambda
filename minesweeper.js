@@ -1,10 +1,13 @@
 'use strict'
-const minefield = [
-    ['*', '*','',''],
-    ['*', '*','',''],
-    ['', '','*',''],
-    ['', '','',''],
-];
+
+//
+//ejemplo de request 
+//const minefield = [
+//     ['*', '*','',''],
+//     ['*', '*','',''],
+//     ['', '','*',''],
+//     ['', '','',''],
+// ];
 
 /*
 Devuelve un json con las posiciones a las distancias que esta cada bomba, si hay una bomba en esa posicion pone un *
@@ -12,7 +15,10 @@ Devuelve un json con las posiciones a las distancias que esta cada bomba, si hay
 module.exports.minesweeper = (event, context, callback) => {
     //recorro el minefield
     // por ahora uso un minefield local
+    let body = JSON.parse(event.body);
+    let minefield = body.minefield;
     let lines = '';
+
     for (let row = 0; row < minefield.length; row++) {
         let line = ''
         for (let col = 0; col < minefield[row].length; col++) {
